@@ -1,4 +1,4 @@
-import { fetchProducts } from "@/lib/apiCall";
+import { createProduct, fetchProducts } from "@/lib/apiCall";
 import { ProductsState, ProductT } from "@/lib/types/productsType";
 import { RootState } from "@/redux/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -29,9 +29,14 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.allProducts = action.payload;
-    });
+    builder
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.allProducts = action.payload;
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.allProducts.push(action.payload);
+        state.status = "succeeded";
+      });
   },
 });
 
