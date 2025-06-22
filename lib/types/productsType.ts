@@ -13,6 +13,7 @@ export type ProductT = {
 export interface ProductsState {
   allProducts: ProductT[];
   selectedProducts: ProductT[];
+  selectedProductDetail: ProductT;
   totalPrice: number;
 }
 

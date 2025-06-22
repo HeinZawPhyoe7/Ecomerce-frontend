@@ -3,9 +3,22 @@ import { ProductsState, ProductT } from "@/lib/types/productsType";
 import { RootState } from "@/redux/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+const initialProjectDetails = {
+  id: 0,
+  name: "",
+  category: "",
+  brand: "",
+  images: "",
+  description: "",
+  price: 0,
+  currency: "",
+  exportFrom: "",
+};
+
 const initialState: ProductsState = {
   allProducts: [],
   selectedProducts: [],
+  selectedProductDetail: initialProjectDetails,
   totalPrice: 0,
 };
 
@@ -15,6 +28,9 @@ const productsSlice = createSlice({
   reducers: {
     addProducts(state, action: PayloadAction<ProductT>) {
       state.selectedProducts.push(action.payload);
+    },
+    setProductDetails(state, action: PayloadAction<ProductT>) {
+      state.selectedProductDetail = action.payload;
     },
     removeProduct(state, action: PayloadAction<number>) {
       const idToRemove = action.payload;
@@ -35,12 +51,14 @@ const productsSlice = createSlice({
       })
       .addCase(createProduct.fulfilled, (state, action) => {
         state.allProducts.push(action.payload);
-        state.status = "succeeded";
       });
   },
 });
 
 export default productsSlice.reducer;
-export const { addProducts, removeProduct } = productsSlice.actions;
+export const { addProducts, removeProduct, setProductDetails } =
+  productsSlice.actions;
 export const selectedProductsList = (state: RootState) =>
   state.products.selectedProducts;
+export const selectedProductDetail = (state: RootState) =>
+  state.products.selectedProductDetail;

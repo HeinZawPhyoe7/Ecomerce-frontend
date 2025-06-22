@@ -20,11 +20,17 @@ const ShoppingCart = () => {
   const dispatch = useAppDispatch();
 
   const selectedProducts = useAppSelector(selectedProductsList);
+
+  console.log("selectedProductsLength", selectedProducts.length);
+
   return (
-    <div>
+    <div className="py-4">
       <Dialog>
-        <DialogTrigger>
-          <ShoppingCartIcon />
+        <DialogTrigger className="relative">
+          <ShoppingCartIcon className="text-sky-400 cursor-pointer hover:opacity-70" />
+          <div className="absolute -top-3 -right-3 bg-emerald-400 rounded-full px-1 text-sm text-white">
+            {selectedProducts.length}
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
