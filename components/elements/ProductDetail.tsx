@@ -25,8 +25,11 @@ const ProductDetail = () => {
           />
         </div>
         <div>{currentSelectedProduct.name}</div>
-        <div>Brand:{currentSelectedProduct.brand}</div>
-        <div>{currentSelectedProduct.price}</div>
+        <div>{currentSelectedProduct.brand}</div>
+        <div>
+          {currentSelectedProduct.price}
+          {currentSelectedProduct.currency}
+        </div>
         <div>
           <button
             className="bg-green-600 hover:bg-green-500 active:bg-green-700 cursor-pointer rounded-md shadow-sm text-white p-2"

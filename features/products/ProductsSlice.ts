@@ -1,5 +1,6 @@
 import { createProduct, fetchProducts } from "@/lib/apiCall";
 import { ProductsState, ProductT } from "@/lib/types/productsType";
+import { calculateTotalPrice } from "@/lib/utils";
 import { RootState } from "@/redux/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -28,6 +29,7 @@ const productsSlice = createSlice({
   reducers: {
     addProducts(state, action: PayloadAction<ProductT>) {
       state.selectedProducts.push(action.payload);
+      state.totalPrice = calculateTotalPrice(state.selectedProducts);
     },
     setProductDetails(state, action: PayloadAction<ProductT>) {
       state.selectedProductDetail = action.payload;
@@ -43,6 +45,9 @@ const productsSlice = createSlice({
         state.selectedProducts.splice(index, 1);
       }
     },
+    removeAll(state) {
+      (state.selectedProducts = []), (state.totalPrice = 0);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -56,9 +61,10 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { addProducts, removeProduct, setProductDetails } =
+export const { addProducts, removeProduct, removeAll, setProductDetails } =
   productsSlice.actions;
 export const selectedProductsList = (state: RootState) =>
   state.products.selectedProducts;
+export const getTotalPrice = (state: RootState) => state.products.totalPrice;
 export const selectedProductDetail = (state: RootState) =>
   state.products.selectedProductDetail;

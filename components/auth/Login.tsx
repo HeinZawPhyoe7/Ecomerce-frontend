@@ -32,6 +32,7 @@ const Login = () => {
       console.log("Login successful:", response.data);
       if (response.data.access_token) {
         localStorage.setItem("accessToken", response.data.access_token);
+
         router.push("/");
       }
     } catch (error) {
