@@ -4,6 +4,6 @@ export type UserT = {
   email: string;
 };
 
-export type UsersState = {
-  user: [];
-};
+export interface UsersState {
+  newUsers: UserT[];
+}

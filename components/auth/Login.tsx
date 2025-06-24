@@ -1,5 +1,7 @@
 "use client";
 
+import { addUsers } from "@/features/users/UserSlice";
+import { useAppDispatch } from "@/redux/hook";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -29,11 +32,20 @@ const Login = () => {
         }
       );
 
-      console.log("Login successful:", response.data);
-      if (response.data.access_token) {
-        localStorage.setItem("accessToken", response.data.access_token);
+      const { access_token, user } = response.data;
 
-        router.push("/");
+      if (access_token && user) {
+        dispatch(addUsers(user));
+        localStorage.setItem("accessToken", access_token);
+        localStorage.setItem("userType", user.usertype);
+
+        if (user.usertype === "admin") {
+          router.push("/admin");
+        } else if (user.usertype === "user") {
+          router.push("/");
+        } else {
+          console.warn("Unknown user type:", user.usertype);
+        }
       }
     } catch (error) {
       console.error("Login failed:", error);

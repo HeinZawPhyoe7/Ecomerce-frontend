@@ -25,10 +25,10 @@ const Home = () => {
         <button onClick={() => router.push("/admin")}>Create</button>
       </div>
       <div className="grid grid-cols-8 gap-4">
-        {allProducts.map((product) => (
+        {allProducts.map((product, index) => (
           <div
             onClick={() => handleProductClick(product)}
-            key={product.id}
+            key={index}
             className="border p-4 rounded shadow"
           >
             <img

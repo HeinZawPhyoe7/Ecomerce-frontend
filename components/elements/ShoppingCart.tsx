@@ -21,15 +21,15 @@ const ShoppingCart = () => {
 
   const selectedProducts = useAppSelector(selectedProductsList);
 
-  console.log("selectedProductsLength", selectedProducts.length);
-
   return (
     <div className="py-4">
       <Dialog>
-        <DialogTrigger className="relative">
-          <ShoppingCartIcon className="text-sky-400 cursor-pointer hover:opacity-70" />
-          <div className="absolute -top-3 -right-3 bg-emerald-400 rounded-full px-1 text-sm text-white">
-            {selectedProducts.length}
+        <DialogTrigger asChild className="relative">
+          <div>
+            <ShoppingCartIcon className="text-sky-400 cursor-pointer hover:opacity-70" />
+            <div className="absolute -top-3 -right-3 bg-emerald-400 rounded-full px-1 text-sm text-white">
+              {selectedProducts.length}
+            </div>
           </div>
         </DialogTrigger>
         <DialogContent>
@@ -48,12 +48,12 @@ const ShoppingCart = () => {
                   <div>
                     {product.price} {product.currency}
                   </div>
-                  <button
+                  <div
                     onClick={() => dispatch(removeProduct(product.id))}
                     className="bg-red-600 hover:bg-red-500 active:bg-red-700 cursor-pointer rounded-md shadow-sm text-white p-0.5"
                   >
                     <Minus />
-                  </button>
+                  </div>
                 </div>
               ))}
             </div>

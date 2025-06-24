@@ -34,6 +34,9 @@ const productsSlice = createSlice({
     setProductDetails(state, action: PayloadAction<ProductT>) {
       state.selectedProductDetail = action.payload;
     },
+    setProducts(state, action: PayloadAction<ProductT[]>) {
+      state.allProducts = action.payload;
+    },
     removeProduct(state, action: PayloadAction<number>) {
       const idToRemove = action.payload;
       const index = state.selectedProducts.findIndex(
@@ -61,8 +64,13 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { addProducts, removeProduct, removeAll, setProductDetails } =
-  productsSlice.actions;
+export const {
+  addProducts,
+  removeProduct,
+  removeAll,
+  setProductDetails,
+  setProducts,
+} = productsSlice.actions;
 export const selectedProductsList = (state: RootState) =>
   state.products.selectedProducts;
 export const getTotalPrice = (state: RootState) => state.products.totalPrice;

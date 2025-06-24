@@ -10,6 +10,13 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const searchProducts = async (searchProducts: string) => {
+  const response = await axiosInstance.post("/auth/search/product", {
+    name: searchProducts,
+  });
+  return response.data.products as ProductT[];
+};
+
 export const createProduct = createAsyncThunk(
   "products/createProduct",
   async (product: CreateProductT, thunkAPI) => {
