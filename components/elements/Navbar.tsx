@@ -1,15 +1,19 @@
 "use client";
 
 import { Home, Search, ShoppingCartIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShoppingCart from "./ShoppingCart";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAppDispatch } from "@/redux/hook";
-import { searchProducts } from "@/lib/apiCall";
+import { logout, searchProducts } from "@/lib/apiCall";
 import { setProducts } from "@/features/products/ProductsSlice";
 
 const Navbar = () => {
+  const [accessToken, setAccessToken] = useState("");
+  useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken") || "");
+  });
   const dispatch = useAppDispatch();
   const [searchName, setSearchName] = useState("");
   const router = useRouter();
@@ -20,6 +24,22 @@ const Navbar = () => {
 
   const handleHome = () => {
     router.push("/");
+  };
+
+  const handleRegister = () => {
+    router.push("/register");
+  };
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
+  const handleLogout = async () => {
+    const response = await logout(accessToken || "");
+    if (response.code === 200) {
+      localStorage.removeItem("accessToken");
+      router.push("/login");
+    }
   };
 
   const handleSearchChange = (e: any) => {
@@ -60,6 +80,31 @@ const Navbar = () => {
           <button>
             <ShoppingCart />
           </button>
+        </div>
+        <div>
+          {accessToken ? (
+            <button
+              onClick={handleLogout}
+              className="bg-red-400 p-2 text-white border cursor-pointer rounded-md shadow-md"
+            >
+              Logout
+            </button>
+          ) : (
+            <div>
+              <button
+                onClick={handleRegister}
+                className="bg-sky-400 p-2 text-white border cursor-pointer rounded-md shadow-md"
+              >
+                Register
+              </button>
+              <button
+                onClick={handleLogin}
+                className="bg-sky-400 p-2 text-white border cursor-pointer rounded-md shadow-md"
+              >
+                Login
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

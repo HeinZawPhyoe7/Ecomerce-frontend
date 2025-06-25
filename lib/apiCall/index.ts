@@ -33,3 +33,17 @@ export const createProduct = createAsyncThunk(
     }
   }
 );
+
+export const logout = async (token: string) => {
+  const response = await axiosInstance.post(
+    "/auth/logout",
+    {}, // No body needed for logout
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};

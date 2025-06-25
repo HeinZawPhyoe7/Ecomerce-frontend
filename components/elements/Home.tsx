@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { fetchProducts } from "@/lib/apiCall";
 import { useRouter } from "next/navigation";
