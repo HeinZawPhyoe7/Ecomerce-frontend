@@ -40,7 +40,6 @@ const Admin = () => {
     if (createApiStatus === "succeeded") {
       successToast();
     }
-    // dispatch(resetProductForm());
   };
   const router = useRouter();
   return (

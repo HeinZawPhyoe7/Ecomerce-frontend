@@ -27,7 +27,6 @@ const createProductSlice = createSlice({
     ) => {
       const { field, value } = action.payload;
 
-      // Convert "price" to number if field is "price"
       if (field === "price") {
         state.data[field] = parseFloat(value) || 0;
       } else {

@@ -2,15 +2,21 @@ import { UsersState, UserT } from "@/lib/types/usersType";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: UsersState = {
-  newUsers: [],
+  newUsers: {
+    id: 0,
+    name: "",
+    email: "",
+  },
+  accessToken: "",
 };
 
 const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    addUsers: (state, action: PayloadAction<UserT>) => {
-      state.newUsers.push(action.payload);
+    addUsers: (state, action: PayloadAction<UsersState>) => {
+      state.newUsers = action.payload.newUsers;
+      state.accessToken = action.payload.accessToken;
     },
   },
 });

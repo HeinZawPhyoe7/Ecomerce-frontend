@@ -5,5 +5,6 @@ export type UserT = {
 };
 
 export interface UsersState {
-  newUsers: UserT[];
+  newUsers: UserT;
+  accessToken: string;
 }

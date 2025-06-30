@@ -85,7 +85,7 @@ const Register = () => {
         <div className="pb-4">
           <button
             onClick={handleRegister}
-            className="bg-blue-500 w-32 cursor-pointer rounded-md p-2 border border-blue-400 "
+            className="bg-blue-500 text-white w-32 cursor-pointer rounded-md p-2 border border-blue-400 "
           >
             Register
           </button>

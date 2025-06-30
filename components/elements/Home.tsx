@@ -9,7 +9,8 @@ import { ProductT } from "@/lib/types/productsType";
 const Home = () => {
   const dispatch = useAppDispatch();
   const { allProducts } = useAppSelector((state) => state.products);
-
+  const { accessToken } = useAppSelector((state) => state.users);
+  console.log("aa", accessToken);
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);

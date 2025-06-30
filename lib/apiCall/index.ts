@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "./axiosInstance";
 import { CreateProductT, ProductT } from "../types/productsType";
+import { AddressType } from "../types/addressesType";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
@@ -25,6 +26,31 @@ export const createProduct = createAsyncThunk(
         "/auth/create/products",
         product
       );
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Create failed"
+      );
+    }
+  }
+);
+
+export const createAddress = createAsyncThunk(
+  "addresses/createAddress",
+  async (address: AddressType, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const response = await axiosInstance.post(
+        "/auth/create/address",
+        address,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(

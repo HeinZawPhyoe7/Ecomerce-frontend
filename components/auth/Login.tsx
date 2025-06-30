@@ -35,7 +35,11 @@ const Login = () => {
       const { access_token, user } = response.data;
 
       if (access_token && user) {
-        dispatch(addUsers(user));
+        const payload = {
+          newUsers: user,
+          accessToken: access_token,
+        };
+        dispatch(addUsers(payload));
         localStorage.setItem("accessToken", access_token);
         localStorage.setItem("userType", user.usertype);
 
@@ -78,7 +82,7 @@ const Login = () => {
 
           <button
             onClick={handleLogin}
-            className="mt-4 bg-blue-400 rounded-lg p-2  w-full cursor-pointer"
+            className="mt-4 bg-blue-400 rounded-lg p-2 text-white w-full cursor-pointer"
           >
             Login
           </button>
