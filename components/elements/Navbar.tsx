@@ -22,6 +22,10 @@ const Navbar = () => {
     router.push("/cart");
   };
 
+  const handleShipping = () => {
+    router.push("/shipping");
+  };
+
   const handleHome = () => {
     router.push("/");
   };
@@ -61,6 +65,9 @@ const Navbar = () => {
           <button onClick={handleHome}>Home</button>
           <div>
             <button onClick={handleCart}>MyCart</button>
+          </div>
+          <div>
+            <button onClick={handleShipping}>To Shipping</button>
           </div>
         </div>
         <div className="flex justify-center items-center gap-1">

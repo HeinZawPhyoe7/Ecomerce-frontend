@@ -16,18 +16,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ContactRound } from "lucide-react";
+import { Atom, ContactRound } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   selectedAddressForm,
   setAddressField,
 } from "@/features/address/AddressSlice";
 import { createAddress } from "@/lib/apiCall";
-import { selectedProductDetail } from "@/features/products/ProductsSlice";
+import {
+  selectedProductDetail,
+  selectedProductsList,
+} from "@/features/products/ProductsSlice";
+import { useRouter } from "next/navigation";
 const Address = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const addressData = useAppSelector(selectedAddressForm);
-  const productId = useAppSelector(selectedProductDetail);
+  const productList = useAppSelector(selectedProductsList);
+  const productIds = productList.map((product) => product.id);
+  console.log("productIds", productIds);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -47,25 +54,30 @@ const Address = () => {
         recipient_name: addressData.recipient_name,
         phone: addressData.phone,
         type: addressData.type,
-        product_id: productId.id,
+        status: addressData.status,
+        payment: addressData.payment,
+        product_ids: productIds,
       })
     );
+    router.push("/shipping");
   };
   return (
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="rounded-md shadow-md text-white p-2 bg-sky-400 cursor-pointer hover:opacity-70">
+          <div className="rounded-md shadow-md text-white p-2 bg-sky-400 cursor-pointer hover:opacity-70 text-xl font-serif font-bold">
             Order
           </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle> Shipping Address</DialogTitle>
+            <DialogTitle className="text-xl font-serif font-bold">
+              Shipping Address
+            </DialogTitle>
             <div className="space-y-2">
               <div>
                 <label
-                  className="flex flex-col justify-start items-start"
+                  className="flex flex-col justify-start items-start text-sm font-serif font-bold"
                   htmlFor=""
                 >
                   City/District/Postcode/Subdistrict
@@ -80,7 +92,7 @@ const Address = () => {
               </div>
               <div>
                 <label
-                  className="flex flex-col justify-start items-start"
+                  className="flex flex-col justify-start items-start text-sm font-serif font-bold"
                   htmlFor=""
                 >
                   House No.,Soi,Moo,Street Name
@@ -95,7 +107,7 @@ const Address = () => {
               </div>
               <div>
                 <label
-                  className="flex flex-col justify-start items-start"
+                  className="flex flex-col justify-start items-start text-sm font-serif font-bold"
                   htmlFor=""
                 >
                   Unit/Floor
@@ -110,7 +122,7 @@ const Address = () => {
               </div>
               <div className="relative">
                 <label
-                  className="flex w-full flex-col justify-start items-start"
+                  className="flex w-full flex-col justify-start items-start text-sm font-serif font-bold"
                   htmlFor=""
                 >
                   Recipient's Name
@@ -122,13 +134,13 @@ const Address = () => {
                   type="text"
                   onChange={handleChange}
                 />
-                <button className="absolute top-7.5 right-2 cursor-pointer">
+                <button className="absolute top-6.5 right-2 cursor-pointer">
                   <ContactRound />
                 </button>
               </div>
               <div>
                 <label
-                  className="flex flex-col justify-start items-start"
+                  className="flex flex-col justify-start items-start text-sm font-serif font-bold"
                   htmlFor=""
                 >
                   Phone Number
@@ -141,22 +153,32 @@ const Address = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start text-xl font-serif font-bold">
                 <label htmlFor="type">Address Type</label>
                 <Select onValueChange={handleTypeChange}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Home">Home</SelectItem>
-                    <SelectItem value="Office">Office</SelectItem>
+                    <SelectItem
+                      value="Home"
+                      className="text-sm font-serif font-bold"
+                    >
+                      Home
+                    </SelectItem>
+                    <SelectItem
+                      value="Office"
+                      className="text-sm font-serif font-bold"
+                    >
+                      Office
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="flex justify-center items-center mt-10">
                 <button
                   onClick={handleOrder}
-                  className="bg-sky-400 text-white rounded-md shadow-md p-2 cursor-pointer"
+                  className="bg-sky-400 text-white rounded-md shadow-md p-2 cursor-pointer text-xl font-serif font-bold"
                 >
                   Order Now
                 </button>

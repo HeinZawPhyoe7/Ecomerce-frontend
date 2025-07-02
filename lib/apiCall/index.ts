@@ -63,7 +63,7 @@ export const createAddress = createAsyncThunk(
 export const logout = async (token: string) => {
   const response = await axiosInstance.post(
     "/auth/logout",
-    {}, // No body needed for logout
+    {},
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -73,3 +73,17 @@ export const logout = async (token: string) => {
 
   return response.data;
 };
+
+export const fetchaddresses = createAsyncThunk(
+  "address/fetchaddresses",
+  async () => {
+    const token = localStorage.getItem("accessToken");
+
+    const response = await axiosInstance.get("/auth/get/addresses", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.address as AddressType[];
+  }
+);
