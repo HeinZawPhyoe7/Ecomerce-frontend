@@ -1,3 +1,5 @@
+import { ProductT } from "./productsType";
+
 export type AddressType = {
   id?: number;
   address: string;
@@ -8,6 +10,7 @@ export type AddressType = {
   type?: "Home" | "Office" | string;
   status: string;
   payment: string;
+  productList: ProductT[];
   product_ids: number[];
   created_at?: string;
   updated_at?: string;

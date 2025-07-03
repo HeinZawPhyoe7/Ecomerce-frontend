@@ -16,6 +16,7 @@ const initialState: AddressState = {
     type: "",
     status: "",
     payment: "",
+    productList: [],
     product_ids: [],
   },
 };

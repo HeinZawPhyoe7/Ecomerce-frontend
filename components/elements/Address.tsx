@@ -56,6 +56,7 @@ const Address = () => {
         type: addressData.type,
         status: addressData.status,
         payment: addressData.payment,
+        productList: addressData.productList,
         product_ids: productIds,
       })
     );

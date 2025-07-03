@@ -84,6 +84,6 @@ export const fetchaddresses = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.address as AddressType[];
+    return response.data.addresses as AddressType[];
   }
 );
