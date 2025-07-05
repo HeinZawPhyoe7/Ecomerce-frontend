@@ -39,16 +39,9 @@ export const createAddress = createAsyncThunk(
   "addresses/createAddress",
   async (address: AddressType, thunkAPI) => {
     try {
-      const token = localStorage.getItem("accessToken");
-
       const response = await axiosInstance.post(
         "/auth/create/address",
-        address,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        address
       );
 
       return response.data;
@@ -60,16 +53,8 @@ export const createAddress = createAsyncThunk(
   }
 );
 
-export const logout = async (token: string) => {
-  const response = await axiosInstance.post(
-    "/auth/logout",
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export const logout = async () => {
+  const response = await axiosInstance.post("/auth/logout", {});
 
   return response.data;
 };
@@ -77,13 +62,15 @@ export const logout = async (token: string) => {
 export const fetchaddresses = createAsyncThunk(
   "address/fetchaddresses",
   async () => {
-    const token = localStorage.getItem("accessToken");
-
-    const response = await axiosInstance.get("/auth/get/addresses", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get("/auth/get/addresses", {});
     return response.data.addresses as AddressType[];
   }
 );
+
+export const deleteProductId = async (addressId: number, productId: number) => {
+  const response = await axiosInstance.post("/auth/delete/product", {
+    addressId,
+    productId: [productId],
+  });
+  return response.data;
+};

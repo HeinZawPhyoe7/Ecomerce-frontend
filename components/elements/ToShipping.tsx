@@ -1,11 +1,10 @@
 "use client";
 
-import { fetchaddresses } from "@/lib/apiCall";
+import { deleteProductId, fetchaddresses } from "@/lib/apiCall";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import { AddressType } from "@/lib/types/addressesType";
-import { ProductT } from "@/lib/types/productsType";
 
 const ToShipping = () => {
   const dispatch = useAppDispatch();
@@ -17,12 +16,19 @@ const ToShipping = () => {
   useEffect(() => {
     dispatch(fetchaddresses());
   }, [dispatch]);
+
+  const handleCancelClick = async (hein: number, zaw: number) => {
+    const response = await deleteProductId(hein, zaw);
+    if ((response.code = 200)) {
+      dispatch(fetchaddresses());
+    }
+  };
   return (
-    <div>
+    <div className="">
       <Navbar />
-      <div>
+      <div className="">
         <h2>Order Details</h2>
-        <div className="">
+        <div className="grid grid-cols-3">
           {addresses.length === 0 ? (
             <p>No addresses found.</p>
           ) : (
@@ -42,22 +48,31 @@ const ToShipping = () => {
                         />
                       </div>
 
-                      <div>
+                      <div className="space-y-1">
                         <div>{product.name}</div>
                         <div className="flex justify-center items-center gap-2">
-                          <p className="text-sky-400 text-[10px] p-0.5">
+                          <p className="text-sky-600 bg-sky-100 text-[10px] px-1 py-0.5 rounded-xs">
                             30 Days Free Returns
                           </p>
-                          <p className="text-sky-400 text-[10px] p-0.5">
+                          <p className="text-sky-600 bg-sky-100 text-[10px] px-1 py-0.5 rounded-xs">
                             Warranty By Seller
                           </p>
                         </div>
                         <div className="flex justify-between items-center">
-                          <p>
-                            {product.price}
-                            {product.currency}
+                          <p className="">
+                            {product.price} {product.currency}
                           </p>
                           <p>Qty:1</p>
+                        </div>
+                        <div className="flex justify-end items-center">
+                          <button
+                            onClick={() =>
+                              handleCancelClick(item.id || 0, product.id)
+                            }
+                            className="border border-gray-900 rounded-md shadow-md text-sky-400 p-1 cursor-pointer"
+                          >
+                            Cancle
+                          </button>
                         </div>
                       </div>
                     </div>

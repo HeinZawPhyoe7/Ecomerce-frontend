@@ -39,11 +39,9 @@ const Navbar = () => {
   };
 
   const handleLogout = async () => {
-    const response = await logout(accessToken || "");
-    if (response.code === 200) {
-      localStorage.removeItem("accessToken");
-      router.push("/login");
-    }
+    const response = await logout();
+    localStorage.removeItem("accessToken");
+    router.push("/login");
   };
 
   const handleSearchChange = (e: any) => {
