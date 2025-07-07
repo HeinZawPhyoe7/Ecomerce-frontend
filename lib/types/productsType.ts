@@ -6,6 +6,7 @@ export type ProductT = {
   images: string;
   description: string;
   price: number;
+  quantity: number;
   currency: string;
   exportFrom: string;
 };
@@ -15,6 +16,7 @@ export interface ProductsState {
   selectedProducts: ProductT[];
   selectedProductDetail: ProductT;
   totalPrice: number;
+  totalQuantity: number;
 }
 
 export type CreateProductT = Omit<ProductT, "id">;

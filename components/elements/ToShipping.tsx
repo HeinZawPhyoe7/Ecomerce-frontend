@@ -10,8 +10,6 @@ const ToShipping = () => {
   const dispatch = useAppDispatch();
   const addresses = useAppSelector((state) => state.address.allAddresses);
   const products = useAppSelector((state) => state.products.selectedProducts);
-  console.log("bb", addresses);
-  console.log("aa", products);
 
   useEffect(() => {
     dispatch(fetchaddresses());
@@ -62,14 +60,14 @@ const ToShipping = () => {
                           <p className="">
                             {product.price} {product.currency}
                           </p>
-                          <p>Qty:1</p>
+                          <p>Qty:{item.total_quantity}</p>
                         </div>
                         <div className="flex justify-end items-center">
                           <button
                             onClick={() =>
                               handleCancelClick(item.id || 0, product.id)
                             }
-                            className="border border-gray-900 rounded-md shadow-md text-sky-400 p-1 cursor-pointer"
+                            className="border border-gray-900 rounded-md shadow-md text-sky-400 py-1 px-3 cursor-pointer"
                           >
                             Cancle
                           </button>
@@ -79,7 +77,7 @@ const ToShipping = () => {
                   ))}
                 </div>
                 <div>Delivering to{item.address}</div>
-                <div>Paid By{item.payment}</div>
+                <div>Paid by {item.payment}</div>
                 <div>
                   {item.status === "shipping" ? (
                     <div>Your Product is shipping</div>

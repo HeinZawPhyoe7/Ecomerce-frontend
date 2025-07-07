@@ -1,35 +1,27 @@
 import { createProduct, fetchProducts } from "@/lib/apiCall";
-import { ProductsState, ProductT } from "@/lib/types/productsType";
-import { calculateTotalPrice } from "@/lib/utils";
+import { ProductT } from "@/lib/types/productsType";
+import { calculateTotalPrice, calculateTotalQuantity } from "@/lib/utils";
 import { RootState } from "@/redux/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-const initialProjectDetails = {
-  id: 0,
-  name: "",
-  category: "",
-  brand: "",
-  images: "",
-  description: "",
-  price: 0,
-  currency: "",
-  exportFrom: "",
-};
-
-const initialState: ProductsState = {
-  allProducts: [],
-  selectedProducts: [],
-  selectedProductDetail: initialProjectDetails,
-  totalPrice: 0,
-};
+import { initialProductState } from "./productState";
 
 const productsSlice = createSlice({
   name: "products",
-  initialState,
+  initialState: initialProductState,
   reducers: {
     addProducts(state, action: PayloadAction<ProductT>) {
-      state.selectedProducts.push(action.payload);
+      const existing = state.selectedProducts.find(
+        (product) => product.id === action.payload.id
+      );
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        state.selectedProducts.push({ ...action.payload, quantity: 1 });
+      }
+
       state.totalPrice = calculateTotalPrice(state.selectedProducts);
+      state.totalQuantity = calculateTotalQuantity(state.selectedProducts);
     },
     setProductDetails(state, action: PayloadAction<ProductT>) {
       state.selectedProductDetail = action.payload;
@@ -38,18 +30,27 @@ const productsSlice = createSlice({
       state.allProducts = action.payload;
     },
     removeProduct(state, action: PayloadAction<number>) {
-      const idToRemove = action.payload;
       const index = state.selectedProducts.findIndex(
-        (product) => product.id === idToRemove
+        (product) => product.id === action.payload
       );
 
       if (index !== -1) {
-        state.totalPrice -= state.selectedProducts[index].price;
-        state.selectedProducts.splice(index, 1);
+        const product = state.selectedProducts[index];
+
+        if (product.quantity > 1) {
+          product.quantity -= 1;
+        } else {
+          state.selectedProducts.splice(index, 1);
+        }
+
+        state.totalPrice = calculateTotalPrice(state.selectedProducts);
       }
     },
+
     removeAll(state) {
-      (state.selectedProducts = []), (state.totalPrice = 0);
+      state.selectedProducts = [];
+      state.totalPrice = 0;
+      state.totalQuantity = 0;
     },
   },
   extraReducers: (builder) => {
@@ -74,5 +75,7 @@ export const {
 export const selectedProductsList = (state: RootState) =>
   state.products.selectedProducts;
 export const getTotalPrice = (state: RootState) => state.products.totalPrice;
+export const getTotalQuantity = (state: RootState) =>
+  state.products.totalQuantity;
 export const selectedProductDetail = (state: RootState) =>
   state.products.selectedProductDetail;

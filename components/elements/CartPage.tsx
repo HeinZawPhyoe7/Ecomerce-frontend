@@ -1,13 +1,15 @@
 "use client";
 
 import {
+  addProducts,
   getTotalPrice,
+  getTotalQuantity,
   removeAll,
   removeProduct,
   selectedProductsList,
 } from "@/features/products/ProductsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { Minus, Trash2 } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import React from "react";
 import Address from "./Address";
 
@@ -15,6 +17,7 @@ const CartPage = () => {
   const dispatch = useAppDispatch();
   const selectedProducts = useAppSelector(selectedProductsList);
   const currentTotalPrice = useAppSelector(getTotalPrice);
+  const currentTotalQuantity = useAppSelector(getTotalQuantity);
   console.log("select", selectedProducts);
 
   return (
@@ -36,22 +39,28 @@ const CartPage = () => {
                 {product.price}
                 {product.currency}
               </div>
-              <div>
+              <div className="flex justify-start items-center gap-3">
                 <button
                   onClick={() => dispatch(removeProduct(product.id))}
                   className="bg-red-600 hover:bg-red-500 active:bg-red-700 cursor-pointer rounded-md shadow-sm text-white p-0.5"
                 >
                   <Minus />
                 </button>
+                <p>{product.quantity}</p>
+                <button
+                  onClick={() => dispatch(addProducts(product))}
+                  className="bg-green-600 hover:bg-green-500 active:bg-green-700 cursor-pointer rounded-md shadow-sm text-white p-0.5"
+                >
+                  <Plus />
+                </button>
               </div>
             </div>
           </div>
         ))}
         <div>Total Price: {currentTotalPrice} MMK</div>
+        <div>Total Quantity: {currentTotalQuantity}</div>
         <div>
-          <button>
-            <Address />
-          </button>
+          <Address />
         </div>
         <div>
           <button

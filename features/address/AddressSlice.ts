@@ -16,6 +16,8 @@ const initialState: AddressState = {
     type: "",
     status: "",
     payment: "",
+    total_quantity: 0,
+    total_price: 0,
     productList: [],
     product_ids: [],
   },
@@ -38,7 +40,10 @@ const addressSlice = createSlice({
       }
     },
 
-    resetAddressForm: () => initialState,
+    resetAddressForm: (state) => {
+      state.data = initialState.data;
+      state.selectedAddress = initialState.selectedAddress;
+    },
   },
   extraReducers: (builder) => {
     builder

@@ -34,8 +34,10 @@ const Admin = () => {
         brand: formData.brand,
         category: formData.category,
         images: formData.images,
+        quantity: 0,
       })
     );
+    dispatch(resetProductForm());
     console.log("createApiStatus", createApiStatus);
     if (createApiStatus === "succeeded") {
       successToast();

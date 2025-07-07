@@ -12,6 +12,7 @@ const initialState: CreateProductType = {
     images: "",
     description: "",
     price: 0,
+    quantity: 0,
     currency: "",
     exportFrom: "",
   },
@@ -25,12 +26,13 @@ const createProductSlice = createSlice({
       state,
       action: PayloadAction<{ field: keyof CreateProductT; value: string }>
     ) => {
-      const { field, value } = action.payload;
+      const { field, value }: { field: string; value: string } = action.payload;
 
       if (field === "price") {
         state.data[field] = parseFloat(value) || 0;
       } else {
-        state.data[field] = value as any;
+        // @ts-ignore
+        state.data[field] = value;
       }
     },
 

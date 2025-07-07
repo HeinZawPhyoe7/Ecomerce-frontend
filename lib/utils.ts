@@ -7,8 +7,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const calculateTotalPrice = (items: ProductT[]): number => {
-  return items.reduce((sum, item) => sum + item.price, 0);
+export const calculateTotalPrice = (products: ProductT[]) => {
+  return products.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+};
+
+export const calculateTotalQuantity = (products: ProductT[]) => {
+  return products.reduce((total, product) => total + product.quantity, 0);
 };
 
 export const successToast = () =>

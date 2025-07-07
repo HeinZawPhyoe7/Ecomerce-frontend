@@ -16,15 +16,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Atom, ContactRound } from "lucide-react";
+import { ContactRound } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
+  resetAddressForm,
   selectedAddressForm,
   setAddressField,
 } from "@/features/address/AddressSlice";
 import { createAddress } from "@/lib/apiCall";
 import {
-  selectedProductDetail,
+  getTotalPrice,
+  getTotalQuantity,
+  removeAll,
   selectedProductsList,
 } from "@/features/products/ProductsSlice";
 import { useRouter } from "next/navigation";
@@ -33,6 +36,9 @@ const Address = () => {
   const dispatch = useAppDispatch();
   const addressData = useAppSelector(selectedAddressForm);
   const productList = useAppSelector(selectedProductsList);
+  const totalQuantity = useAppSelector(getTotalQuantity);
+  const totalPrice = useAppSelector(getTotalPrice);
+
   const productIds = productList.map((product) => product.id);
   console.log("productIds", productIds);
 
@@ -56,17 +62,21 @@ const Address = () => {
         type: addressData.type,
         status: addressData.status,
         payment: addressData.payment,
+        total_quantity: totalQuantity,
+        total_price: totalPrice,
         productList: addressData.productList,
         product_ids: productIds,
       })
     );
+    dispatch(resetAddressForm());
+    dispatch(removeAll());
     router.push("/shipping");
   };
   return (
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="rounded-md shadow-md text-white p-2 bg-sky-400 cursor-pointer hover:opacity-70 text-xl font-serif font-bold">
+          <div className="w-20 text-center rounded-md shadow-md text-white p-2 bg-sky-400 cursor-pointer hover:opacity-70 text-xl font-serif font-bold">
             Order
           </div>
         </DialogTrigger>
@@ -126,7 +136,7 @@ const Address = () => {
                   className="flex w-full flex-col justify-start items-start text-sm font-serif font-bold"
                   htmlFor=""
                 >
-                  Recipient's Name
+                  Recipient&apos;s Name
                 </label>
                 <input
                   name="recipient_name"

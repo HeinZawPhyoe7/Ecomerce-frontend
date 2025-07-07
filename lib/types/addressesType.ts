@@ -10,6 +10,8 @@ export type AddressType = {
   type?: "Home" | "Office" | string;
   status: string;
   payment: string;
+  total_quantity: number;
+  total_price: number;
   productList: ProductT[];
   product_ids: number[];
   created_at?: string;
