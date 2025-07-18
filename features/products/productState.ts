@@ -1,6 +1,6 @@
 import { ProductsState } from "@/lib/types/productsType";
 
-const initialProjectDetails = {
+const initialProductDetails = {
   id: 0,
   name: "",
   category: "",
@@ -16,7 +16,7 @@ const initialProjectDetails = {
 export const initialProductState: ProductsState = {
   allProducts: [],
   selectedProducts: [],
-  selectedProductDetail: initialProjectDetails,
+  selectedProductDetail: initialProductDetails,
   totalPrice: 0,
   totalQuantity: 0,
 };

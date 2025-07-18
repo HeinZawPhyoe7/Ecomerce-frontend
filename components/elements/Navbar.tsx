@@ -44,6 +44,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     await logout();
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userType");
     router.push("/login");
   };
 

@@ -91,7 +91,9 @@ const Login = () => {
             Forgot Password?
           </a>
         </div>
-        <div className="text-xl font-bold font-serif">Don't Have Account?</div>
+        <div className="text-xl font-bold font-serif">
+          Don&apos;t Have Account?
+        </div>
         <Link
           href="/register"
           className="text-sky-400 text-xl font-bold font-serif cursor-pointer mt-3"

@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import React from "react";
 import Address from "./Address";
+import Image from "next/image";
 
 const CartPage = () => {
   const dispatch = useAppDispatch();
@@ -26,9 +27,11 @@ const CartPage = () => {
         {selectedProducts.map((product, index: number) => (
           <div className="flex justify-start items-start" key={index}>
             <div>
-              <img
+              <Image
                 src={`data:image/jpeg;base64,${product.images}`}
                 alt={product.name}
+                width={120}
+                height={120}
                 className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"
               />
             </div>

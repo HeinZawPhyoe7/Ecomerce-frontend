@@ -4,7 +4,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
 const axiosInstance = axios.create();
 
-// Request interceptor: Attach base URL and token
 axiosInstance.interceptors.request.use(
   (config) => {
     if (config.url && !/^https?:\/\//i.test(config.url)) {
@@ -28,7 +27,6 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("accessToken");
 
-      // Redirect to login page
       if (typeof window !== "undefined") {
         window.location.href = "/login";
       }

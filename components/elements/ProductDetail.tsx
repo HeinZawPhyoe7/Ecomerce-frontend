@@ -6,6 +6,7 @@ import {
   selectedProductsList,
 } from "@/features/products/ProductsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import Image from "next/image";
 import React from "react";
 
 const ProductDetail = () => {
@@ -18,9 +19,11 @@ const ProductDetail = () => {
     <div>
       <div>
         <div>
-          <img
+          <Image
             src={`data:image/jpeg;base64,${currentSelectedProduct.images}`}
             alt={currentSelectedProduct.name}
+            width={120}
+            height={120}
             className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"
           />
         </div>

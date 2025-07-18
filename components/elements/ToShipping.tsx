@@ -5,11 +5,11 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import { AddressType } from "@/lib/types/addressesType";
+import Image from "next/image";
 
 const ToShipping = () => {
   const dispatch = useAppDispatch();
   const addresses = useAppSelector((state) => state.address.allAddresses);
-  const products = useAppSelector((state) => state.products.selectedProducts);
 
   useEffect(() => {
     dispatch(fetchaddresses());
@@ -39,16 +39,18 @@ const ToShipping = () => {
                       className="flex justify-start items-start"
                     >
                       <div>
-                        <img
+                        <Image
                           src={`data:image/jpeg;base64,${product.images}`}
                           alt={product.name}
+                          width={120}
+                          height={120}
                           className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"
                         />
                       </div>
 
                       <div className="space-y-1">
                         <div>{product.name}</div>
-                        <div className="flex justify-center items-center gap-2">
+                        <div className="flex justify-center items-center gap-1">
                           <p className="text-sky-600 bg-sky-100 text-[10px] px-1 py-0.5 rounded-xs">
                             30 Days Free Returns
                           </p>

@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { fetchProducts } from "@/lib/apiCall";
 import { useRouter } from "next/navigation";
 import { setProductDetails } from "@/features/products/ProductsSlice";
 import { ProductT } from "@/lib/types/productsType";
+import Image from "next/image";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -26,15 +27,17 @@ const Home = () => {
         <button onClick={() => router.push("/admin")}>Create</button>
       </div>
       <div className="grid grid-cols-8 gap-4">
-        {allProducts.map((product, index) => (
+        {allProducts.map((product: any, index: number) => (
           <div
             onClick={() => handleProductClick(product)}
             key={index}
             className="border p-4 rounded shadow"
           >
-            <img
+            <Image
               src={`data:image/jpeg;base64,${product.images}`}
               alt={product.name}
+              width={120}
+              height={120}
               className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"
             />
             <div>{product.name}</div>

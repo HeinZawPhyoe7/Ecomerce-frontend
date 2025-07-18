@@ -39,7 +39,7 @@ const createProductSlice = createSlice({
     resetProductForm: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(createProduct.fulfilled, (state, action) => {
+    builder.addCase(createProduct.fulfilled, (state) => {
       state.status = "succeeded";
     });
   },
