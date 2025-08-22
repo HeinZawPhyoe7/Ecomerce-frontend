@@ -24,8 +24,8 @@ const ToShipping = () => {
   return (
     <div className="">
       <Navbar />
-      <div className="">
-        <h2>Order Details</h2>
+      <div className="font-serif">
+        <h2 className="text-2xl font-bold">Order Details</h2>
         <div className="grid grid-cols-3">
           {addresses.length === 0 ? (
             <p>No addresses found.</p>
@@ -36,21 +36,21 @@ const ToShipping = () => {
                   {item.productList?.map((product) => (
                     <div
                       key={product.id}
-                      className="flex justify-start items-start"
+                      className="grid grid-cols-10 gap-4 mx-auto"
                     >
-                      <div>
+                      <div className="col-span-2">
                         <Image
                           src={`data:image/jpeg;base64,${product.images}`}
                           alt={product.name}
-                          width={120}
-                          height={120}
+                          width={100}
+                          height={100}
                           className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"
                         />
                       </div>
 
-                      <div className="space-y-1">
-                        <div>{product.name}</div>
-                        <div className="flex justify-center items-center gap-1">
+                      <div className="col-span-8 space-y-1 ">
+                        <div className="text-xl font-bold">{product.name}</div>
+                        <div className="flex justify-start items-center gap-1">
                           <p className="text-sky-600 bg-sky-100 text-[10px] px-1 py-0.5 rounded-xs">
                             30 Days Free Returns
                           </p>
@@ -62,7 +62,6 @@ const ToShipping = () => {
                           <p className="">
                             {product.price} {product.currency}
                           </p>
-                          <p>Qty:{item.total_quantity}</p>
                         </div>
                         <div className="flex justify-end items-center">
                           <button
@@ -78,13 +77,24 @@ const ToShipping = () => {
                     </div>
                   ))}
                 </div>
-                <div>Delivering to{item.address}</div>
-                <div>Paid by {item.payment}</div>
+                <div className="font-bold text-xl opacity-80">
+                  Total Quantity: {item.total_quantity}
+                </div>
+                <div className="font-bold text-xl opacity-80">
+                  Delivering to {item.address}
+                </div>
+                <div className="font-bold text-xl opacity-80">
+                  Paid by {item.payment}
+                </div>
                 <div>
                   {item.status === "shipping" ? (
-                    <div>Your Product is shipping</div>
+                    <div className="font-bold text-xl opacity-80">
+                      Your Product is shipping
+                    </div>
                   ) : (
-                    <div>Your Product is Arrive</div>
+                    <div className="font-bold text-xl opacity-80">
+                      Your Product is Arrive
+                    </div>
                   )}
                 </div>
               </div>

@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <div>
       <div className="relative">
-        <button onClick={() => router.push("/admin")}>Create</button>
+        {/* <button onClick={() => router.push("/admin")}>Create</button> */}
       </div>
       <div className="grid grid-cols-8 gap-4">
         {allProducts.map((product: any, index: number) => (
@@ -35,7 +35,7 @@ const Home = () => {
           >
             <Image
               src={`data:image/jpeg;base64,${product.images}`}
-              alt={product.name}
+              alt={product?.name || "Product Image"}
               width={120}
               height={120}
               className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"

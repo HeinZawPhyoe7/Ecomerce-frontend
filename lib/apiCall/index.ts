@@ -3,6 +3,7 @@ import axiosInstance from "./axiosInstance";
 import { CreateProductT, ProductT } from "../types/productsType";
 import { AddressType } from "../types/addressesType";
 
+//Products
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
@@ -35,6 +36,15 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const deleteProductId = async (addressId: number, productId: number) => {
+  const response = await axiosInstance.post("/auth/delete/product", {
+    addressId,
+    productId: [productId],
+  });
+  return response.data;
+};
+
+//Addresses
 export const createAddress = createAsyncThunk(
   "addresses/createAddress",
   async (address: AddressType, thunkAPI) => {
@@ -53,12 +63,6 @@ export const createAddress = createAsyncThunk(
   }
 );
 
-export const logout = async () => {
-  const response = await axiosInstance.post("/auth/logout", {});
-
-  return response.data;
-};
-
 export const fetchaddresses = createAsyncThunk(
   "address/fetchaddresses",
   async () => {
@@ -67,10 +71,8 @@ export const fetchaddresses = createAsyncThunk(
   }
 );
 
-export const deleteProductId = async (addressId: number, productId: number) => {
-  const response = await axiosInstance.post("/auth/delete/product", {
-    addressId,
-    productId: [productId],
-  });
+export const logout = async () => {
+  const response = await axiosInstance.post("/auth/logout", {});
+
   return response.data;
 };

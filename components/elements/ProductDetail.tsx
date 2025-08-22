@@ -17,7 +17,7 @@ const ProductDetail = () => {
   console.log("current details", addToCartProducts);
   return (
     <div>
-      <div>
+      <div className="flex flex-col justify-center items-center mt-5 font-serif space-y-4">
         <div>
           <Image
             src={`data:image/jpeg;base64,${currentSelectedProduct.images}`}
@@ -27,10 +27,15 @@ const ProductDetail = () => {
             className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"
           />
         </div>
-        <div>{currentSelectedProduct.name}</div>
-        <div>{currentSelectedProduct.brand}</div>
-        <div>
-          {currentSelectedProduct.price}
+        <div className="text-2xl font-bold">{currentSelectedProduct.name}</div>
+        <div className="text-start w-[300px] text-sm opacity-70">
+          {currentSelectedProduct.description}
+        </div>
+        <div className="text-sm opacity-70">
+          Brand: {currentSelectedProduct.brand}
+        </div>
+        <div className="text-sm opacity-70">
+          Price: {currentSelectedProduct.price}
           {currentSelectedProduct.currency}
         </div>
         <div>

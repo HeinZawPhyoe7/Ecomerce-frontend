@@ -23,22 +23,22 @@ const CartPage = () => {
 
   return (
     <div>
-      <div className="px-[300px]">
+      <div className="px-[300px] font-serif ">
         {selectedProducts.map((product, index: number) => (
-          <div className="flex justify-start items-start" key={index}>
-            <div>
+          <div className="grid grid-cols-10 mx-auto gap-4 mb-4" key={index}>
+            <div className="col-span-2">
               <Image
                 src={`data:image/jpeg;base64,${product.images}`}
                 alt={product.name}
-                width={120}
-                height={120}
+                width={100}
+                height={100}
                 className="w-30 h-30 rounded cursor-pointer hover:opacity-80 transition"
               />
             </div>
-            <div>
-              <div>{product.name}</div>
-              <div>{product.description}</div>
-              <div>
+            <div className="col-span-8">
+              <div className="text-2xl font-bold">{product.name}</div>
+              <div className="text-sm opacity-70">{product.description}</div>
+              <div className="text-sm">
                 {product.price}
                 {product.currency}
               </div>
@@ -60,18 +60,24 @@ const CartPage = () => {
             </div>
           </div>
         ))}
-        <div>Total Price: {currentTotalPrice} MMK</div>
-        <div>Total Quantity: {currentTotalQuantity}</div>
-        <div>
-          <Address />
+        <div className="text-xl opacity-80">
+          Total Price: {currentTotalPrice} MMK
         </div>
-        <div>
-          <button
-            onClick={() => dispatch(removeAll())}
-            className="bg-red-600 hover:bg-red-500 active:bg-red-700 cursor-pointer rounded-md shadow-sm text-white p-2"
-          >
-            <Trash2 />
-          </button>
+        <div className="text-xl opacity-80">
+          Total Quantity: {currentTotalQuantity}
+        </div>
+        <div className="flex justify-start items-center gap-6">
+          <div>
+            <Address />
+          </div>
+          <div>
+            <button
+              onClick={() => dispatch(removeAll())}
+              className="bg-red-600 hover:bg-red-500 active:bg-red-700 cursor-pointer rounded-md shadow-sm text-white p-2"
+            >
+              <Trash2 />
+            </button>
+          </div>
         </div>
       </div>
     </div>
